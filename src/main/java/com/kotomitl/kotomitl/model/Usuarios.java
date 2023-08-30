@@ -33,10 +33,10 @@ public class Usuarios {
 	@Column (name="password",nullable=false)
 	private String password;
 	
-	@Column (name="domicilio",nullable=false)
+	@Column (name="domicilio",nullable=true)
 	private String domicilio ;
 	
-	@Column (name="estado",nullable=false)
+	@Column (name="estado",nullable=true)
 	private Integer estado;
 	
 	
