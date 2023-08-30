@@ -54,6 +54,14 @@ public class AdminController {
 	
 	
 	//POST agregar admin
+	/*
+	{
+    "nombre": "Roberto",
+    "email": "roberto@kotomitl.com",
+    "password" : "Pa$$w0rd3"
+    }
+	 */
+	
 	@PostMapping
 	//@RequestBody porque vamos a realizar un post con un contenido tipo Body
 	public Admin addAdmin(@RequestBody Admin admin) {
