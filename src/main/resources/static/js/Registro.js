@@ -289,7 +289,7 @@ function alertSuccess() {
 
 
 // Si todas las validaciones son exitosas, guarda el registro en el localStorage
-/*
+
 async function validaEmailNuevo() {
     const emailToCheck = emailInput.value.trim().toLowerCase();
 
@@ -300,9 +300,15 @@ async function validaEmailNuevo() {
         return data.length !== 0; // Retorna true si el correo existe
     } catch (error) {
         console.log('Error al verificar el correo:', error);
-        return true; // En caso de error, consideramos que el correo no existe
+
+        if (error instanceof TypeError || error instanceof NetworkError) {
+            return true; // En caso de error de tipo de red, consideramos que el correo no existe
+        } else {
+            throw error; // Lanza el error para que pueda ser manejado en otro lugar si es necesario
+        }
     }
-}*/
+}
+
 
 
 // Función para limpiar los campos del formulario
@@ -401,9 +407,9 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
                 // Mostrar mensaje de error
                 swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
             }
-        //} else {
+        } else {
             swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
-       // }
+        }
         
     } else {
         alertWrong();
