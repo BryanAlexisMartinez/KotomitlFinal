@@ -19,7 +19,7 @@ function repetidos(elemento, repeticiones) {
         if (elemento.charAt(i) == elemento.charAt(i + 1))
             sum++;
     }
-    return repeticiones>=sum;
+    return repeticiones >= sum;
 }
 
 //   ***********  nombre  ***********
@@ -37,7 +37,7 @@ function validarNombre() {
     alert_nombre.style.display = "none";
     alert_nombre_txt.innerHTML = "";
 
-    if (regexName.test(name) && repetidos(name,2)) {
+    if (regexName.test(name) && repetidos(name, 2)) {
         nombreInput.style.border = "solid 2px green";
         return true
     } else {
@@ -68,7 +68,7 @@ function validarApellido() {
     alert_apellido.style.display = "none";
     alert_apellido_txt.innerHTML = "";
 
-    if (regexName.test(name) && repetidos(name,2)) {
+    if (regexName.test(name) && repetidos(name, 2)) {
         apellidoInput.style.border = "solid 2px green";
         return true
     } else {
@@ -297,7 +297,7 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
     let esEmailNuevo = validaEmailNuevo();
 
     // Si todas las validaciones son exitosas, guarda el registro en el localStorage
-    
+
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
         if (esEmailNuevo) {
             const registro = {
@@ -307,24 +307,59 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
                 "email": emailInput.value.trim().toLowerCase(),
                 "password": passwordInput.value
             };
-    
+
             // Realizar el fetch para enviar los datos al servidor
             var myHeaders = new Headers();
-           // myHeaders.append("Authorization", "Bearer: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvMUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MzI1NjU4MiwiZXhwIjoxNjkzMjkyNTgyfQ.MVoEDrPDxeyzuDXD-XRArPeKGmBk2XrbFGMR4pklSuU");
+            // myHeaders.append("Authorization", "Bearer: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvMUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MzI1NjU4MiwiZXhwIjoxNjkzMjkyNTgyfQ.MVoEDrPDxeyzuDXD-XRArPeKGmBk2XrbFGMR4pklSuU");
             myHeaders.append("Content-Type", "application/json");
-    
+
             var raw = JSON.stringify(registro);
-    
+
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
             };
-    
+
             fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions)
                 .then(response => response.text())
                 .then(result => {
+                    // Limpia los campos del formulario
+                    nombreInput.value = "";
+                    nombreInput.style.border = "";
+                    alert_nombre.style.display = "none";
+                    alert_nombre_txt.innerHTML = "";
+
+                    apellidoInput.value = "";
+                    apellidoInput.style.border = "";
+                    alert_apellido.style.display = "none";
+                    alert_apellido_txt.innerHTML = "";
+
+                    telInput.value = '';
+                    telInput.style.border = "";
+                    alert_telefono.style.display = "none";
+                    alert_telefono_txt.innerHTML = "";
+
+                    emailInput.value = '';
+                    emailInput.style.border = "";
+                    alert_email.style.display = "none";
+                    alert_email_txt.innerHTML = "";
+
+                    emailInputVal.value = '';
+                    emailInputVal.style.border = "";
+                    alert_emailVal.style.display = "none";
+                    alert_emailVal_txt.innerHTML = "";
+
+                    passwordInput.value = '';
+                    passwordInput.style.border = "";
+                    alert_password.style.display = "none";
+                    alert_password_txt.innerHTML = "";
+
+                    passwordInputVal.value = '';
+                    passwordInputVal.style.border = "";
+                    alert_passwordVal.style.display = "none";
+                    alert_passwordVal_txt.innerHTML = "";
                     // Mostrar mensaje de éxito
                     swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" });
                     console.log(result);
@@ -334,7 +369,7 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
                     // Mostrar mensaje de error
                     swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
                 });
-    
+
             // Resto del código para limpiar los campos, etc.
         } else {
             swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
@@ -346,74 +381,74 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
 
 
 
-    
-    
-    /*if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        if (esEmailNuevo) {
-            const registro = `{
-                "nombre": "${nombreInput.value.trim().toUpperCase()}",
-                "apellido": "${apellidoInput.value.trim().toUpperCase()}",
-                "telefono": "${telInput.value}",
-                "email": "${emailInput.value.trim().toLowerCase()}",
-                "password": "${passwordInput.value}"
-            }`;
 
-            listaUsuarios.push(JSON.parse(registro));
-            localStorage.setItem('registroUsuario', JSON.stringify(listaUsuarios));
 
-            // Limpia los campos del formulario
-            nombreInput.value="";
-            nombreInput.style.border = "";
-            alert_nombre.style.display = "none";
-            alert_nombre_txt.innerHTML = "";
-            
-            apellidoInput.value="";
-            apellidoInput.style.border = "";
-            alert_apellido.style.display = "none";
-            alert_apellido_txt.innerHTML = "";
+/*if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
+    if (esEmailNuevo) {
+        const registro = `{
+            "nombre": "${nombreInput.value.trim().toUpperCase()}",
+            "apellido": "${apellidoInput.value.trim().toUpperCase()}",
+            "telefono": "${telInput.value}",
+            "email": "${emailInput.value.trim().toLowerCase()}",
+            "password": "${passwordInput.value}"
+        }`;
 
-            telInput.value = '';
-            telInput.style.border = "";
-            alert_telefono.style.display = "none";
-            alert_telefono_txt.innerHTML = "";
+        listaUsuarios.push(JSON.parse(registro));
+        localStorage.setItem('registroUsuario', JSON.stringify(listaUsuarios));
 
-            emailInput.value = '';
-            emailInput.style.border = "";
-            alert_email.style.display = "none";
-            alert_email_txt.innerHTML = "";
+        // Limpia los campos del formulario
+        nombreInput.value="";
+        nombreInput.style.border = "";
+        alert_nombre.style.display = "none";
+        alert_nombre_txt.innerHTML = "";
+        
+        apellidoInput.value="";
+        apellidoInput.style.border = "";
+        alert_apellido.style.display = "none";
+        alert_apellido_txt.innerHTML = "";
 
-            emailInputVal.value = '';
-            emailInputVal.style.border = "";
-            alert_emailVal.style.display = "none";
-            alert_emailVal_txt.innerHTML = "";
+        telInput.value = '';
+        telInput.style.border = "";
+        alert_telefono.style.display = "none";
+        alert_telefono_txt.innerHTML = "";
 
-            passwordInput.value = '';
-            passwordInput.style.border = "";
-            alert_password.style.display = "none";
-            alert_password_txt.innerHTML = "";
+        emailInput.value = '';
+        emailInput.style.border = "";
+        alert_email.style.display = "none";
+        alert_email_txt.innerHTML = "";
 
-            passwordInputVal.value = '';
-            passwordInputVal.style.border = "";
-            alert_passwordVal.style.display = "none";
-            alert_passwordVal_txt.innerHTML = "";
+        emailInputVal.value = '';
+        emailInputVal.style.border = "";
+        alert_emailVal.style.display = "none";
+        alert_emailVal_txt.innerHTML = "";
 
-            // Mensaje de éxito
-            swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" })
+        passwordInput.value = '';
+        passwordInput.style.border = "";
+        alert_password.style.display = "none";
+        alert_password_txt.innerHTML = "";
 
-        } else {
-            swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" })
-        }
+        passwordInputVal.value = '';
+        passwordInputVal.style.border = "";
+        alert_passwordVal.style.display = "none";
+        alert_passwordVal_txt.innerHTML = "";
+
+        // Mensaje de éxito
+        swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" })
+
     } else {
-        alertWrong();
-    }*/
-
-    /*window.addEventListener("load", function (event) {
-    event.preventDefault();
-    if (this.localStorage.getItem("listaUsuarios") != null) {
-        // Obtener el arreglo del localStorage
-        var listaUsuariosJSON = localStorage.getItem('listaUsuarios');
-
-        // Convertir la cadena JSON nuevamente a un arreglo
-        listaUsuarios = JSON.parse(listaUsuariosJSON);
+        swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" })
     }
+} else {
+    alertWrong();
+}*/
+
+/*window.addEventListener("load", function (event) {
+event.preventDefault();
+if (this.localStorage.getItem("listaUsuarios") != null) {
+    // Obtener el arreglo del localStorage
+    var listaUsuariosJSON = localStorage.getItem('listaUsuarios');
+
+    // Convertir la cadena JSON nuevamente a un arreglo
+    listaUsuarios = JSON.parse(listaUsuariosJSON);
+}
 })*/
