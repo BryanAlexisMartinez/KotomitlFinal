@@ -289,7 +289,7 @@ function alertSuccess() {
 
 
 // Si todas las validaciones son exitosas, guarda el registro en el localStorage
-
+/*
 async function validaEmailNuevo() {
     const emailToCheck = emailInput.value.trim().toLowerCase();
 
@@ -302,7 +302,7 @@ async function validaEmailNuevo() {
         console.log('Error al verificar el correo:', error);
         return true; // En caso de error, consideramos que el correo no existe
     }
-}
+}*/
 
 
 // Función para limpiar los campos del formulario
@@ -361,7 +361,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
     const esEmailNuevo = await validaEmailNuevo();
 
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        if (esEmailNuevo) {
+        //if (esEmailNuevo) {
             // Realizar el registro
             const registro = {
                 "nombre": nombreInput.value.trim().toUpperCase(),
@@ -401,9 +401,9 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
                 // Mostrar mensaje de error
                 swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
             }
-        } else {
+        //} else {
             swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
-        }
+       // }
         
     } else {
         alertWrong();
