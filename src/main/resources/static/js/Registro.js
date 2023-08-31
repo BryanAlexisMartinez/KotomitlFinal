@@ -266,26 +266,25 @@ function alertSuccess() {
 }
 
 // Se obtienen los registros almacenados en el localStorage
-function validaEmailNuevo() {
-    let storedRecordJSON = localStorage.getItem('listaUsuarios');
-    let storedRecord = JSON.parse(storedRecordJSON);
-    let contador = 0;
-
-    if (storedRecord != null) {
-        for (let i = 0; i < storedRecord.length; i++) {
-
-            if (storedRecord[i].email == emailInput.value.trim().toLowerCase()) {
-                contador++;
-            }
+fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions)
+    .then(response => {
+        if (response.ok) {
+            // Mostrar mensaje de éxito
+            swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" });
+        } else {
+            // Mostrar mensaje de error
+            swal({ title: "Error en el registro", text: "El correo ya está registrado.", icon: "error" });
         }
-    }
-
-    return (contador == 0);
-}
+    })
+    .catch(error => {
+        console.log('error', error);
+        // Mostrar mensaje de error
+        swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
+    });
 
 
 // ***********  Integración de validaciones  ***********
-let listaUsuarios = new Array(); // para almacenar elementos de la tabla
+//let listaUsuarios = new Array(); // para almacenar elementos de la tabla
 
 // Escucha el evento click en el botón de envío
 document.getElementById('btnEnviar').addEventListener('click', function () {
@@ -345,7 +344,19 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
     } else {
         alertWrong();
     }
-    
+});
+
+/*window.addEventListener("load", function (event) {
+    event.preventDefault();
+    if (this.localStorage.getItem("listaUsuarios") != null) {
+        // Obtener el arreglo del localStorage
+        var listaUsuariosJSON = localStorage.getItem('listaUsuarios');
+
+        // Convertir la cadena JSON nuevamente a un arreglo
+        listaUsuarios = JSON.parse(listaUsuariosJSON);
+    }
+})*/
+
     
     
     /*if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
@@ -406,15 +417,3 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
     } else {
         alertWrong();
     }*/
-});
-
-window.addEventListener("load", function (event) {
-    event.preventDefault();
-    if (this.localStorage.getItem("listaUsuarios") != null) {
-        // Obtener el arreglo del localStorage
-        var listaUsuariosJSON = localStorage.getItem('listaUsuarios');
-
-        // Convertir la cadena JSON nuevamente a un arreglo
-        listaUsuarios = JSON.parse(listaUsuariosJSON);
-    }
-})
