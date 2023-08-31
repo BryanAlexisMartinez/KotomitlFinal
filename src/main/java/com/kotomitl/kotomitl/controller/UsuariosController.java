@@ -40,6 +40,8 @@ public class UsuariosController {
 		return varUsuariosService.getUsuarios(id);
 	}
 	
+
+	
 	//DELETE COMPRA POR SU ID
 	@DeleteMapping(path = "{usuarioId}")
 	public Usuarios deleteUsuarios(@PathVariable("usuarioId") Long id) {
