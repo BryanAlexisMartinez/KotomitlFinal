@@ -271,6 +271,23 @@ function alertSuccess() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Si todas las validaciones son exitosas, guarda el registro en el localStorage
 
 async function validaEmailNuevo() {
@@ -328,10 +345,6 @@ function limpiarCampos() {
 }
 
 
-//let listaUsuarios = new Array(); // para almacenar elementos de la tabla
-
-// Escucha el evento click en el botón de envío
-
 
 document.getElementById('btnEnviar').addEventListener('click', async function () {
     // Realiza las validaciones
@@ -347,7 +360,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
     const esEmailNuevo = await validaEmailNuevo();
 
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        if (esEmailNuevo) {
+        if (esEmailNuevo = true) {
             // Realizar el registro
             const registro = {
                 "nombre": nombreInput.value.trim().toUpperCase(),
@@ -397,6 +410,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
 
 
 
+//===============================FUNCION CON EL LOCALSTORAGE===============================================
 
 /*if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
     if (esEmailNuevo) {
