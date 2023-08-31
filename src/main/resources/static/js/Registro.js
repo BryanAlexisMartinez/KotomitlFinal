@@ -297,12 +297,13 @@ async function validaEmailNuevo() {
         const response = await fetch(`https://kotomitl.onrender.com/api/usuarios?email=${emailToCheck}`);
         const data = await response.json();
 
-        return data.length === 0; // Retorna true si el correo no está registrado
+        return data.length !== 0; // Retorna true si el correo existe
     } catch (error) {
         console.log('Error al verificar el correo:', error);
-        return false; // En caso de error, consideramos que el correo ya existe
+        return true; // En caso de error, consideramos que el correo no existe
     }
 }
+
 
 // Función para limpiar los campos del formulario
 function limpiarCampos() {
