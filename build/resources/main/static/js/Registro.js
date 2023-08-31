@@ -19,7 +19,7 @@ function repetidos(elemento, repeticiones) {
         if (elemento.charAt(i) == elemento.charAt(i + 1))
             sum++;
     }
-    return repeticiones>=sum;
+    return repeticiones >= sum;
 }
 
 //   ***********  nombre  ***********
@@ -37,7 +37,7 @@ function validarNombre() {
     alert_nombre.style.display = "none";
     alert_nombre_txt.innerHTML = "";
 
-    if (regexName.test(name) && repetidos(name,2)) {
+    if (regexName.test(name) && repetidos(name, 2)) {
         nombreInput.style.border = "solid 2px green";
         return true
     } else {
@@ -68,7 +68,7 @@ function validarApellido() {
     alert_apellido.style.display = "none";
     alert_apellido_txt.innerHTML = "";
 
-    if (regexName.test(name) && repetidos(name,2)) {
+    if (regexName.test(name) && repetidos(name, 2)) {
         apellidoInput.style.border = "solid 2px green";
         return true
     } else {
@@ -267,25 +267,73 @@ function alertSuccess() {
 
 // ***********  Integración de validaciones  ***********
 // Se obtienen los registros almacenados en el localStorage
-function validaEmailNuevo() {
+
+
+
+
+// Si todas las validaciones son exitosas, guarda el registro en el localStorage
+
+async function validaEmailNuevo() {
     const emailToCheck = emailInput.value.trim().toLowerCase();
 
-    return fetch(`https://kotomitl.onrender.com/api/usuarios?email=${emailToCheck}`)
-        .then(response => response.json())
-        .then(data => {
-            return data.length === 0; // Retorna true si el correo no está registrado
-        })
-        .catch(error => {
-            console.log('Error al verificar el correo:', error);
-            return false; // En caso de error, retornamos false por seguridad
-        });
+    try {
+        const response = await fetch(`https://kotomitl.onrender.com/api/usuarios?email=${emailToCheck}`);
+        const data = await response.json();
+
+        return data.length === 0; // Retorna true si el correo no está registrado
+    } catch (error) {
+        console.log('Error al verificar el correo:', error);
+        return false; // En caso de error, consideramos que el correo ya existe
+    }
+}
+
+// Función para limpiar los campos del formulario
+function limpiarCampos() {
+    nombreInput.value = "";
+    nombreInput.style.border = "";
+    alert_nombre.style.display = "none";
+    alert_nombre_txt.innerHTML = "";
+
+    apellidoInput.value = "";
+    apellidoInput.style.border = "";
+    alert_apellido.style.display = "none";
+    alert_apellido_txt.innerHTML = "";
+
+    telInput.value = "";
+    telInput.style.border = "";
+    alert_telefono.style.display = "none";
+    alert_telefono_txt.innerHTML = "";
+
+    emailInput.value = "";
+    emailInput.style.border = "";
+    alert_email.style.display = "none";
+    alert_email_txt.innerHTML = "";
+
+    emailInputVal.value = "";
+    emailInputVal.style.border = "";
+    alert_emailVal.style.display = "none";
+    alert_emailVal_txt.innerHTML = "";
+
+    passwordInput.value = "";
+    passwordInput.style.border = "";
+    alert_password.style.display = "none";
+    alert_password_txt.innerHTML = "";
+
+    passwordInputVal.value = "";
+    passwordInputVal.style.border = "";
+    alert_passwordVal.style.display = "none";
+    alert_passwordVal_txt.innerHTML = "";
+
+    // Continúa con la limpieza de los demás campos aquí...
 }
 
 
 //let listaUsuarios = new Array(); // para almacenar elementos de la tabla
 
 // Escucha el evento click en el botón de envío
-document.getElementById('btnEnviar').addEventListener('click', function () {
+
+
+document.getElementById('btnEnviar').addEventListener('click', async function () {
     // Realiza las validaciones
     let esNombre = validarNombre();
     let esApellido = validarApellido();
@@ -294,12 +342,13 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
     let esEmailVal = validarEmail2();
     let esPassword = validarpassword();
     let esPasswordVal = validarpassword2();
-    let esEmailNuevo = validaEmailNuevo();
 
-    // Si todas las validaciones son exitosas, guarda el registro en el localStorage
-    
+    // Llama a la función para verificar si el correo ya está registrado
+    const esEmailNuevo = await validaEmailNuevo();
+
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
         if (esEmailNuevo) {
+            // Realizar el registro
             const registro = {
                 "nombre": nombreInput.value.trim().toUpperCase(),
                 "apellido": apellidoInput.value.trim().toUpperCase(),
@@ -307,35 +356,37 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
                 "email": emailInput.value.trim().toLowerCase(),
                 "password": passwordInput.value
             };
-    
-            // Realizar el fetch para enviar los datos al servidor
+
             var myHeaders = new Headers();
-           // myHeaders.append("Authorization", "Bearer: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvMUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MzI1NjU4MiwiZXhwIjoxNjkzMjkyNTgyfQ.MVoEDrPDxeyzuDXD-XRArPeKGmBk2XrbFGMR4pklSuU");
             myHeaders.append("Content-Type", "application/json");
-    
+
             var raw = JSON.stringify(registro);
-    
+
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
             };
-    
-            fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions)
-                .then(response => response.text())
-                .then(result => {
+
+            try {
+                const response = await fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions);
+                const result = await response.text();
+
+                if (response.ok) {
                     // Mostrar mensaje de éxito
                     swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" });
-                    console.log(result);
-                })
-                .catch(error => {
-                    console.log('error', error);
+                    // Limpiar los campos del formulario
+                    limpiarCampos();
+                } else {
                     // Mostrar mensaje de error
                     swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
-                });
-    
-            // Resto del código para limpiar los campos, etc.
+                }
+            } catch (error) {
+                console.log('error', error);
+                // Mostrar mensaje de error
+                swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
+            }
         } else {
             swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
         }
@@ -346,74 +397,73 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
 
 
 
-    
-    
-    /*if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        if (esEmailNuevo) {
-            const registro = `{
-                "nombre": "${nombreInput.value.trim().toUpperCase()}",
-                "apellido": "${apellidoInput.value.trim().toUpperCase()}",
-                "telefono": "${telInput.value}",
-                "email": "${emailInput.value.trim().toLowerCase()}",
-                "password": "${passwordInput.value}"
-            }`;
 
-            listaUsuarios.push(JSON.parse(registro));
-            localStorage.setItem('registroUsuario', JSON.stringify(listaUsuarios));
+/*if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
+    if (esEmailNuevo) {
+        const registro = `{
+            "nombre": "${nombreInput.value.trim().toUpperCase()}",
+            "apellido": "${apellidoInput.value.trim().toUpperCase()}",
+            "telefono": "${telInput.value}",
+            "email": "${emailInput.value.trim().toLowerCase()}",
+            "password": "${passwordInput.value}"
+        }`;
 
-            // Limpia los campos del formulario
-            nombreInput.value="";
-            nombreInput.style.border = "";
-            alert_nombre.style.display = "none";
-            alert_nombre_txt.innerHTML = "";
-            
-            apellidoInput.value="";
-            apellidoInput.style.border = "";
-            alert_apellido.style.display = "none";
-            alert_apellido_txt.innerHTML = "";
+        listaUsuarios.push(JSON.parse(registro));
+        localStorage.setItem('registroUsuario', JSON.stringify(listaUsuarios));
 
-            telInput.value = '';
-            telInput.style.border = "";
-            alert_telefono.style.display = "none";
-            alert_telefono_txt.innerHTML = "";
+        // Limpia los campos del formulario
+        nombreInput.value="";
+        nombreInput.style.border = "";
+        alert_nombre.style.display = "none";
+        alert_nombre_txt.innerHTML = "";
+        
+        apellidoInput.value="";
+        apellidoInput.style.border = "";
+        alert_apellido.style.display = "none";
+        alert_apellido_txt.innerHTML = "";
 
-            emailInput.value = '';
-            emailInput.style.border = "";
-            alert_email.style.display = "none";
-            alert_email_txt.innerHTML = "";
+        telInput.value = '';
+        telInput.style.border = "";
+        alert_telefono.style.display = "none";
+        alert_telefono_txt.innerHTML = "";
 
-            emailInputVal.value = '';
-            emailInputVal.style.border = "";
-            alert_emailVal.style.display = "none";
-            alert_emailVal_txt.innerHTML = "";
+        emailInput.value = '';
+        emailInput.style.border = "";
+        alert_email.style.display = "none";
+        alert_email_txt.innerHTML = "";
 
-            passwordInput.value = '';
-            passwordInput.style.border = "";
-            alert_password.style.display = "none";
-            alert_password_txt.innerHTML = "";
+        emailInputVal.value = '';
+        emailInputVal.style.border = "";
+        alert_emailVal.style.display = "none";
+        alert_emailVal_txt.innerHTML = "";
 
-            passwordInputVal.value = '';
-            passwordInputVal.style.border = "";
-            alert_passwordVal.style.display = "none";
-            alert_passwordVal_txt.innerHTML = "";
+        passwordInput.value = '';
+        passwordInput.style.border = "";
+        alert_password.style.display = "none";
+        alert_password_txt.innerHTML = "";
 
-            // Mensaje de éxito
-            swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" })
+        passwordInputVal.value = '';
+        passwordInputVal.style.border = "";
+        alert_passwordVal.style.display = "none";
+        alert_passwordVal_txt.innerHTML = "";
 
-        } else {
-            swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" })
-        }
+        // Mensaje de éxito
+        swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" })
+
     } else {
-        alertWrong();
-    }*/
-
-    /*window.addEventListener("load", function (event) {
-    event.preventDefault();
-    if (this.localStorage.getItem("listaUsuarios") != null) {
-        // Obtener el arreglo del localStorage
-        var listaUsuariosJSON = localStorage.getItem('listaUsuarios');
-
-        // Convertir la cadena JSON nuevamente a un arreglo
-        listaUsuarios = JSON.parse(listaUsuariosJSON);
+        swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" })
     }
+} else {
+    alertWrong();
+}*/
+
+/*window.addEventListener("load", function (event) {
+event.preventDefault();
+if (this.localStorage.getItem("listaUsuarios") != null) {
+    // Obtener el arreglo del localStorage
+    var listaUsuariosJSON = localStorage.getItem('listaUsuarios');
+
+    // Convertir la cadena JSON nuevamente a un arreglo
+    listaUsuarios = JSON.parse(listaUsuariosJSON);
+}
 })*/
