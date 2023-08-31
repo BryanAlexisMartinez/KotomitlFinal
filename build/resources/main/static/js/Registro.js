@@ -266,6 +266,22 @@ function alertSuccess() {
 }
 
 // ***********  Integración de validaciones  ***********
+// Se obtienen los registros almacenados en el localStorage
+function validaEmailNuevo() {
+    const emailToCheck = emailInput.value.trim().toLowerCase();
+
+    return fetch(`https://kotomitl.onrender.com/api/usuarios?email=${emailToCheck}`)
+        .then(response => response.json())
+        .then(data => {
+            return data.length === 0; // Retorna true si el correo no está registrado
+        })
+        .catch(error => {
+            console.log('Error al verificar el correo:', error);
+            return false; // En caso de error, retornamos false por seguridad
+        });
+}
+
+
 //let listaUsuarios = new Array(); // para almacenar elementos de la tabla
 
 // Escucha el evento click en el botón de envío
