@@ -313,7 +313,7 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
     
             // Realizar el fetch para enviar los datos al servidor
             var myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvMUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MzI1NjU4MiwiZXhwIjoxNjkzMjkyNTgyfQ.MVoEDrPDxeyzuDXD-XRArPeKGmBk2XrbFGMR4pklSuU");
+           // myHeaders.append("Authorization", "Bearer: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvMUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MzI1NjU4MiwiZXhwIjoxNjkzMjkyNTgyfQ.MVoEDrPDxeyzuDXD-XRArPeKGmBk2XrbFGMR4pklSuU");
             myHeaders.append("Content-Type", "application/json");
     
             var raw = JSON.stringify(registro);
