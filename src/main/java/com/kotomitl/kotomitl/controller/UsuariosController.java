@@ -57,8 +57,8 @@ public class UsuariosController {
 
 	 * */
 	@PostMapping
-	public Usuarios addUsuarios(@RequestBody Usuarios usuarios) {
-		return varUsuariosService.addUsuarios(usuarios);
+	public Usuarios addUsuarios(@RequestBody Usuarios usuario) {
+		return varUsuariosService.addUsuario(usuario);
 	}
 	
 	

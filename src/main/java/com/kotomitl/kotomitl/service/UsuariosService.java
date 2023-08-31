@@ -2,7 +2,9 @@ package com.kotomitl.kotomitl.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import com.kotomitl.kotomitl.model.ChangePassword;
 import com.kotomitl.kotomitl.model.Usuarios;
 import com.kotomitl.kotomitl.repository.UsuariosRepository;
@@ -11,6 +13,9 @@ import com.kotomitl.kotomitl.repository.UsuariosRepository;
 public class UsuariosService {
 
 	private final UsuariosRepository varUsuariosRepository;
+	
+	@Autowired
+	private PasswordEncoder varPasswordEncoder;
 
 	// Generar constructor para inicializarlo
 	@Autowired
@@ -41,16 +46,19 @@ public class UsuariosService {
 		return tmp;
 	}
 
-	// POST NUEVA COMPRA
-	public Usuarios addUsuarios(Usuarios usuario) {
-		Usuarios tmp = null;
-		if (varUsuariosRepository.findByEmail(usuario.getEmail()).isEmpty()) {
-			tmp = varUsuariosRepository.save(usuario);
-		} else {
-			System.out.println("Ya existe el correo [" + usuario.getEmail() + "] registrado");
+	//ADD NEW USER PUT
+		public Usuarios addUsuario(Usuarios usuario) {
+			Usuarios tmp = null;
+			if(varUsuariosRepository.findByEmail(usuario.getEmail()).isEmpty()) {
+				//cifra la contra
+				usuario.setPassword(varPasswordEncoder.encode(usuario.getPassword()));
+				tmp = varUsuariosRepository.save(usuario);
+			} else {
+				System.out.println("Ya existe un usuario con el correo: " + usuario.getEmail());
+			}
+			
+			return tmp;
 		}
-		return tmp;
-	}
 
 	// PUT ACTUALIZAR DATOS PERSONALES DE USUARIO
 	public Usuarios updateUsuario(Long id, String nombre, String apellido, String telefono, String email,
