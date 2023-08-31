@@ -360,7 +360,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
     const esEmailNuevo = await validaEmailNuevo();
 
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        if (esEmailNuevo = true) {
+        if (esEmailNuevo) {
             // Realizar el registro
             const registro = {
                 "nombre": nombreInput.value.trim().toUpperCase(),
@@ -369,23 +369,23 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
                 "email": emailInput.value.trim().toLowerCase(),
                 "password": passwordInput.value
             };
-
+        
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-
+        
             var raw = JSON.stringify(registro);
-
+        
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
             };
-
+        
             try {
                 const response = await fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions);
                 const result = await response.text();
-
+        
                 if (response.ok) {
                     // Mostrar mensaje de éxito
                     swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" });
@@ -403,6 +403,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
         } else {
             swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
         }
+        
     } else {
         alertWrong();
     }

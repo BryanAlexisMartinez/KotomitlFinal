@@ -271,6 +271,23 @@ function alertSuccess() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Si todas las validaciones son exitosas, guarda el registro en el localStorage
 
 async function validaEmailNuevo() {
@@ -328,10 +345,6 @@ function limpiarCampos() {
 }
 
 
-//let listaUsuarios = new Array(); // para almacenar elementos de la tabla
-
-// Escucha el evento click en el botón de envío
-
 
 document.getElementById('btnEnviar').addEventListener('click', async function () {
     // Realiza las validaciones
@@ -356,23 +369,23 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
                 "email": emailInput.value.trim().toLowerCase(),
                 "password": passwordInput.value
             };
-
+        
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-
+        
             var raw = JSON.stringify(registro);
-
+        
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
             };
-
+        
             try {
                 const response = await fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions);
                 const result = await response.text();
-
+        
                 if (response.ok) {
                     // Mostrar mensaje de éxito
                     swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" });
@@ -390,6 +403,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
         } else {
             swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
         }
+        
     } else {
         alertWrong();
     }
@@ -397,6 +411,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
 
 
 
+//===============================FUNCION CON EL LOCALSTORAGE===============================================
 
 /*if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
     if (esEmailNuevo) {
