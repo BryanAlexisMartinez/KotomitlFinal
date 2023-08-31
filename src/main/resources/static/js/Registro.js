@@ -300,7 +300,55 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
     let esEmailNuevo = validaEmailNuevo();
 
     // Si todas las validaciones son exitosas, guarda el registro en el localStorage
+    
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
+        if (esEmailNuevo) {
+            const registro = {
+                "nombre": nombreInput.value.trim().toUpperCase(),
+                "apellido": apellidoInput.value.trim().toUpperCase(),
+                "telefono": telInput.value,
+                "email": emailInput.value.trim().toLowerCase(),
+                "password": passwordInput.value
+            };
+    
+            // Realizar el fetch para enviar los datos al servidor
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvMUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MzI1NjU4MiwiZXhwIjoxNjkzMjkyNTgyfQ.MVoEDrPDxeyzuDXD-XRArPeKGmBk2XrbFGMR4pklSuU");
+            myHeaders.append("Content-Type", "application/json");
+    
+            var raw = JSON.stringify(registro);
+    
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+    
+            fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    // Mostrar mensaje de éxito
+                    swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" });
+                    console.log(result);
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    // Mostrar mensaje de error
+                    swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
+                });
+    
+            // Resto del código para limpiar los campos, etc.
+        } else {
+            swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
+        }
+    } else {
+        alertWrong();
+    }
+    
+    
+    
+    /*if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
         if (esEmailNuevo) {
             const registro = `{
                 "nombre": "${nombreInput.value.trim().toUpperCase()}",
@@ -357,7 +405,7 @@ document.getElementById('btnEnviar').addEventListener('click', function () {
         }
     } else {
         alertWrong();
-    }
+    }*/
 });
 
 window.addEventListener("load", function (event) {
