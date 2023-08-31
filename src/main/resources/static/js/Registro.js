@@ -289,28 +289,6 @@ function alertSuccess() {
 
 
 // Si todas las validaciones son exitosas, guarda el registro en el localStorage
-
-async function validaEmailNuevo() {
-    const emailToCheck = emailInput.value.trim().toLowerCase();
-
-    try {
-        const response = await fetch(`https://kotomitl.onrender.com/api/usuarios?email=${emailToCheck}`);
-        const data = await response.json();
-
-        return true; // Retorna true si el correo existe
-    } catch (error) {
-        console.log('Error al verificar el correo:', error);
-
-        if (error instanceof TypeError || error instanceof NetworkError) {
-            return true; // En caso de error de tipo de red, consideramos que el correo no existe
-        } else {
-            throw error; // Lanza el error para que pueda ser manejado en otro lugar si es necesario
-        }
-    }
-}
-
-
-
 // Función para limpiar los campos del formulario
 function limpiarCampos() {
     nombreInput.value = "";
@@ -351,6 +329,24 @@ function limpiarCampos() {
     // Continúa con la limpieza de los demás campos aquí...
 }
 
+async function validaEmailNuevo() {
+    const emailToCheck = emailInput.value.trim().toLowerCase();
+
+    try {
+        const response = await fetch(`https://kotomitl.onrender.com/api/usuarios?email=${emailToCheck}`);
+        const data = await response.json();
+
+        return true; // Retorna true si el correo existe
+    } catch (error) {
+        console.log('Error al verificar el correo:', error);
+
+        if (error instanceof TypeError || error instanceof NetworkError) {
+            return true; // En caso de error de tipo de red, consideramos que el correo no existe
+        } else {
+            throw error; // Lanza el error para que pueda ser manejado en otro lugar si es necesario
+        }
+    }
+}
 
 
 document.getElementById('btnEnviar').addEventListener('click', async function () {
@@ -367,7 +363,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
     const esEmailNuevo = await validaEmailNuevo();
 
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        if (esEmailNuevo = true) {
+        if (esEmailNuevo === true) {
             // Realizar el registro
             const registro = {
                 "nombre": nombreInput.value.trim().toUpperCase(),
