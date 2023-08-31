@@ -367,7 +367,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
     const esEmailNuevo = await validaEmailNuevo();
 
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        //if (esEmailNuevo) {
+        if (esEmailNuevo = true) {
             // Realizar el registro
             const registro = {
                 "nombre": nombreInput.value.trim().toUpperCase(),
