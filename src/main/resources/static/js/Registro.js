@@ -363,7 +363,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
     const esEmailNuevo = await validaEmailNuevo();
 
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        if (esEmailNuevo === true) {
+        //if (esEmailNuevo === true) {
             // Realizar el registro
             const registro = {
                 "nombre": nombreInput.value.trim().toUpperCase(),
@@ -403,9 +403,9 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
                 // Mostrar mensaje de error
                 swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
             }
-        } else {
-            swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
-        }
+        //} else {
+        //    swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
+        //}
         
     } else {
         alertWrong();
