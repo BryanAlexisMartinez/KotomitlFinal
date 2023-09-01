@@ -3,6 +3,8 @@ package com.kotomitl.kotomitl.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,6 +64,18 @@ public class UsuariosController {
 	public Usuarios addUsuarios(@RequestBody Usuarios usuario) {
 		return varUsuariosService.addUsuario(usuario);
 	}
+	
+	@PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
+        Usuarios usuario = varUsuariosService.getByEmail(email);
+        
+        if (usuario != null && usuario.getPassword().equals(password)) {
+            return ResponseEntity.ok("Inicio de sesión exitoso");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
+        }
+    }
+
 	
 	
 	//PUT CAMBIAR PASSWORD

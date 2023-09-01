@@ -93,4 +93,8 @@ public class UsuariosService {
 
 		return tmp;
 	}
+
+	public Usuarios getByEmail(String email) {
+        return varUsuariosRepository.findByEmail(email).orElse(null);
+    }
 }

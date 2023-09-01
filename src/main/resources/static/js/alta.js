@@ -669,6 +669,93 @@ function alertSuccess() {
 }
 
 
+
+
+btnEnviar.addEventListener("click", async function (event) {
+    event.preventDefault();
+
+    // Validar campos
+    const validaciones = [
+        validarCampo(validarNombre),
+        validarCampo(validarOrigen),
+        validarCampo(validarDescripcion),
+        validarCampo(validarPrecio),
+        validarCampo(validarCategoria),
+        validarCampo(validarMaterial),
+        validarCampo(validarSugerencia),
+        validarCampo(validarAdicional),
+        validarCampo(validarColor),
+        validarCampo(validarTalla),
+        validarCampo(validarCantidad),
+        validarCampo(validarSku),
+        validarCampo(validarTipo),
+        validarCampo(validarImagen1),
+        validarCampo(validarImagen2),
+        validarCampo(validarImagen3)
+    ];
+
+    if (validaciones.every(validation => validation)) {
+        swal({ title: "Validando información", text: "Por favor espera...", icon: "info", closeOnClickOutside: false, buttons: false });
+
+        const data = {
+            "adicional": adicionalInput.value.trim(),
+            "cantidad": parseInt(cantidadInput.value),
+            "color": parseInt(colorInput.value),
+            "descripcion": descripcionInput.value.trim(),
+            "imagen1": fileImage_1.value,
+            "imagen2": fileImage_2.value,
+            "imagen3": fileImage_3.value,
+            "materiales": materialInput.value.trim(),
+            "nombre": nombreInput.value.trim().toUpperCase(),
+            "origen": origenInput.value.trim().toUpperCase(),
+            "precio": parseFloat(precioInput.value), // Modificado para ser tratado como un número decimal
+            "publico": parseInt(categoriaInput.value),
+            "sku": skuInput.value.trim().toUpperCase(),
+            "sugerencia": sugerenciaInput.value.trim(),
+            "talla": parseInt(tallaInput.value),
+            "tipo": tipoInput.value.trim().toUpperCase()
+        };
+
+        try {
+            const response = await enviarSolicitud(data);
+            
+            if (response.ok) {
+                alertSuccess();
+                limpiarCampos();
+            } else {
+                alertWrong();
+                // Actualizar estados de imágenes y estilos si es necesario
+            }
+        } catch (error) {
+            console.log('error', error);
+            swal({ title: "Error en el registro", text: "Hubo un problema al registrar el producto.", icon: "error" });
+            // Actualizar estados de imágenes y estilos si es necesario
+        } finally {
+            swal.close();
+        }
+    }
+});
+
+function validarCampo(validacion) {
+    return validacion();
+}
+
+async function enviarSolicitud(data) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        redirect: 'follow'
+    };
+
+    return await fetch("https://kotomitl.onrender.com/api/productos/", requestOptions);
+}
+
+
+
+
+
+/*
 btnEnviar.addEventListener("click", async function (element) {
     element.preventDefault();
 
@@ -733,7 +820,7 @@ btnEnviar.addEventListener("click", async function (element) {
             const result = await response.text();
 
             if (response.ok) {
-                swal.close();
+                //swal.close();
                 alertSuccess();
                 limpiarCampos();
             } else {
@@ -752,7 +839,7 @@ btnEnviar.addEventListener("click", async function (element) {
     }
 });
 
-
+*/
 
 
 

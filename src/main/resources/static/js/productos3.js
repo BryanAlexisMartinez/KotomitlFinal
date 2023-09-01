@@ -148,9 +148,7 @@ function showProducts(prods) {
                 </div>
             </div>
             </div>
-                            </div>
-
-                            
+                            </div>               
     `
   ).join('');
 
@@ -851,7 +849,3 @@ window.addEventListener("load", function (event) {
   });
 
 })
-
-
-
-
