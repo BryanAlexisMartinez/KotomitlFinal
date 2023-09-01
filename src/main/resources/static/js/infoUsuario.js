@@ -140,3 +140,8 @@ function obtenerDatosUsuario() {
         });
     }
 }
+
+window.addEventListener("load", function (event) {
+    event.preventDefault();
+    obtenerDatosUsuario();
+})
