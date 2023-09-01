@@ -20,6 +20,9 @@ import com.kotomitl.kotomitl.model.ChangePassword;
 import com.kotomitl.kotomitl.model.Usuarios;
 import com.kotomitl.kotomitl.service.UsuariosService;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @RestController
 @RequestMapping("/api/usuarios/")
 public class UsuariosController {
@@ -44,6 +47,25 @@ public class UsuariosController {
 	@GetMapping(path = "{usuarioId}")
 	public Usuarios getUsuarios(@PathVariable ("usuarioId") Long id) {
 		return varUsuariosService.getUsuarios(id);
+	}
+	
+	
+	@GetMapping("/perfil")
+	public Usuarios getPerfilUsuario() {
+	    // Obtenemos la información del usuario autenticado en la sesión
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String email = authentication.getName(); // El nombre de usuario (en este caso, el email)
+
+	    // Buscamos al usuario en la base de datos por su email (o cualquier otro identificador único)
+	    Usuarios usuario = varUsuariosService.getByEmail(email);
+
+	    if (usuario != null) {
+	        // Devolvemos la información del usuario
+	        return usuario;
+	    } else {
+	        // Manejo de error si el usuario no se encuentra
+	        throw new RuntimeException("Usuario no encontrado");
+	    }
 	}
 	
 

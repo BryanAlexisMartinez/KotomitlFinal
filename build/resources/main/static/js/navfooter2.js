@@ -45,7 +45,7 @@ window.addEventListener("load", function (event) {
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" href="./infoUsuario.html">Cuenta</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="cierreSesion()">Cerrar sesión</a></li>
+                                    <li><a class="dropdown-item" href="./index.html" onclick="cierreSesion()">Cerrar sesión</a></li>
                                 </ul>
                             </div>
                             <h5 class="text-center" style="color:white;">${nombre}</h5>
