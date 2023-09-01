@@ -189,30 +189,30 @@ filt_cat.addEventListener("click", function (event) {
 });
 
 filt_mas.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.publico == "mas"));
+  showProducts(prod1.filter(prod => prod.publico == 2));
 
 });
 
 filt_fem.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.publico == "fem"));
+  showProducts(prod1.filter(prod => prod.publico == 1));
 });
 
 filt_inf.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.publico == "inf"));
+  showProducts(prod1.filter(prod => prod.publico == 3));
 });
 
 
 btnazul.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.color == "azul"));
+  showProducts(prod1.filter(prod => prod.color == 3));
 
 });
 
 btnblanco.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.color == "blanco"));
+  showProducts(prod1.filter(prod => prod.color == 1));
 });
 
 btnnegro.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.color == "negro"));
+  showProducts(prod1.filter(prod => prod.color == 2));
 });
 
 
@@ -280,14 +280,14 @@ filt_cat2.addEventListener("click", function (event) {
 });
 
 filt_mas2.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.publico == "mas"));
+  showProducts(prod1.filter(prod => prod.publico == 2));
 
 });
 
 filt_fem2.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.publico == "fem"));
+  showProducts(prod1.filter(prod => prod.publico == 1));
 });
 
 filt_inf2.addEventListener("click", function (event) {
-  showProducts(prod1.filter(prod => prod.publico == "inf"));
+  showProducts(prod1.filter(prod => prod.publico == 3));
 });
