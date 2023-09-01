@@ -1,9 +1,10 @@
+const tablainfo = document.getElementById('tablainfo');
 // Función para insertar elementos en la tabla
 function insertarElementosEnTabla(usuario) {
     // Limpia la tabla antes de agregar datos
     tablainfo.innerHTML = '';
 
-    // Obtén los valores del usuario del objeto 'usuario'
+    // Obtén los valores del usuario
     let nombre = usuario.nombre;
     let apellido = usuario.apellido;
     let telefono = usuario.telefono;
@@ -13,9 +14,9 @@ function insertarElementosEnTabla(usuario) {
 
     // Inserta los valores en la tabla
     tablainfo.insertAdjacentHTML("beforeend", `
-                <tbody>
-                <!-- ================= Nombre usuario ============== -->
-                <tr>
+        <tbody>
+            <!-- ================= Nombre usuario ============== -->
+            <tr>
                 <td>
                     <div>
                         <label for="nombre" class="form-label" style="color:black;">
@@ -119,18 +120,22 @@ function insertarElementosEnTabla(usuario) {
                     </div>
                 </th>
             </tr>
-                <!-- Resto de las filas con la misma estructura -->
-            </tbody> 
-                `);
+            <!-- Resto de las filas con la misma estructura -->
+        </tbody> 
+    `);
 }
 
 function obtenerDatosUsuario() {
     if (sessionStorage.getItem('estadoLogin') === 'true') {
+        // Obtener el email almacenado en sessionStorage
+        let email = sessionStorage.getItem('userLogin');
+
         $.ajax({
-            url: '/api/usuarios/perfil', // Ruta para obtener el perfil del usuario
+            url: 'https://kotomitl.onrender.com/api/usuarios/profile', // Ruta para obtener el perfil del usuario
             method: 'GET',
+            data: { email: email }, // Enviar el email como parámetro
             success: function (data) {
-                // Supongamos que el controlador devuelve un objeto JSON con los datos del usuario
+                // Los datos del usuario se recibirán en 'data'
                 let usuario = data;
                 insertarElementosEnTabla(usuario);
             },
@@ -144,4 +149,4 @@ function obtenerDatosUsuario() {
 window.addEventListener("load", function (event) {
     event.preventDefault();
     obtenerDatosUsuario();
-})
+});
