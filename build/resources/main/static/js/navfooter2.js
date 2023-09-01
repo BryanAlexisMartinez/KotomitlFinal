@@ -48,7 +48,7 @@ window.addEventListener("load", function (event) {
                                     <li><a class="dropdown-item" href="./index.html" onclick="cierreSesion()">Cerrar sesión</a></li>
                                 </ul>
                             </div>
-                            <h5 class="text-center" style="color:white;">Hola</h5>
+                            <h5 class="text-center" style="color:white;"></h5>
                     </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ window.addEventListener("load", function (event) {
                             
                             </ul>
                             
-                            <h4 id="nombre__usuario" class="mb-0" style="transform: translateY(.2rem); color: white; font-weight:bold;">${nombre}</h4>
+                            <h4 id="nombre__usuario" class="mb-0" style="transform: translateY(.2rem); color: white; font-weight:bold;"></h4>
                         
                             <div class="iconoSuperior media align-items-center" style="margin-right:4rem">
                             
