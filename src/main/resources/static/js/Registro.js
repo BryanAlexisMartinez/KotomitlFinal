@@ -331,31 +331,31 @@ function limpiarCampos() {
 
 async function validaEmailNuevo() {
     const emailToCheck = emailInput.value.trim().toLowerCase();
-  
+
     try {
-      const response = await fetch(`https://kotomitl.onrender.com/api/usuarios/`);
-      const data = await response.json();
-  
-      const userWithEmail = data.find(user => user.email.toLowerCase() === emailToCheck);
-  
-      if (userWithEmail) {
-        return true; // Retorna true si el correo existe
-      } else {
-        return false; // Retorna false si el correo no existe
-      }
+        const response = await fetch(`https://kotomitl.onrender.com/api/usuarios/`);
+        const data = await response.json();
+
+        const userWithEmail = data.find(user => user.email.toLowerCase() === emailToCheck);
+
+        if (userWithEmail) {
+            return true; // Retorna true si el correo existe
+        } else {
+            return false; // Retorna false si el correo no existe
+        }
     } catch (error) {
-      console.log('Error al verificar el correo:', error);
-  
-      if (error instanceof TypeError || error instanceof NetworkError) {
-        return true; // En caso de error de tipo de red, consideramos que el correo no existe
-      } else {
-        throw error; // Lanza el error para que pueda ser manejado en otro lugar si es necesario
-      }
+        console.log('Error al verificar el correo:', error);
+
+        if (error instanceof TypeError || error instanceof NetworkError) {
+            return true; // En caso de error de tipo de red, consideramos que el correo no existe
+        } else {
+            throw error; // Lanza el error para que pueda ser manejado en otro lugar si es necesario
+        }
     }
-  }
+}
 
 
-  document.getElementById('btnEnviar').addEventListener('click', async function () {
+document.getElementById('btnEnviar').addEventListener('click', async function () {
     // Realiza las validaciones
     let esNombre = validarNombre();
     let esApellido = validarApellido();
@@ -370,7 +370,7 @@ async function validaEmailNuevo() {
 
         // Llama a la función para verificar si el correo ya está registrado
         const correoExiste = await validaEmailNuevo();
-        swal.close(); // Cerrar la alerta de validación
+        // Cerrar la alerta de validación
 
         if (!correoExiste) {
             // Realizar el registro
@@ -400,19 +400,24 @@ async function validaEmailNuevo() {
 
                 if (response.ok) {
                     // Mostrar mensaje de éxito
-                    swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" });
+                    swal.close();
+                    swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success",  }).then(() => {
+                        window.location.href = "https://kotomitl.onrender.com/loginUsuario.html" });
                     // Limpiar los campos del formulario
                     limpiarCampos();
                 } else {
                     // Mostrar mensaje de error
+                    swal.close();
                     swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
                 }
             } catch (error) {
                 console.log('error', error);
                 // Mostrar mensaje de error
+                swal.close();
                 swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
             }
         } else {
+            swal.close();
             swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
         }
     } else {
