@@ -1,11 +1,9 @@
 package com.kotomitl.kotomitl.service;
 
-import java.sql.Blob;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kotomitl.kotomitl.model.Productos;
-import com.kotomitl.kotomitl.model.Usuarios;
 import com.kotomitl.kotomitl.repository.ProductosRepository;
 
 @Service
@@ -43,7 +41,7 @@ public class ProductoService{
 		return tmp;
 	}
 	
-	//POST  agregar producto
+	//POST 
 	public Productos addProducto(Productos producto) {
 		Productos tmp = null;
 		if(varProductosRepository.findBySku(producto.getSku()).isEmpty()) {
@@ -54,11 +52,10 @@ public class ProductoService{
 		return tmp;
 	}
 	
-	
 	// PUT ACTUALIZAR DATOS DEL PRODUCTO
 		public Productos updateProducto(Long id,String nombre, Integer publico, String descripcion, Double precio, String origen,
 				Integer color, Integer cantidad, Integer talla, String materiales, String sugerencia, String adicional,
-				Blob imagen1, Blob imagen2, Blob imagen3, String sku, String tipo) {
+				String imagen1, String imagen2, String imagen3, String sku, String tipo) {
 
 			Productos tmp = null;
 
