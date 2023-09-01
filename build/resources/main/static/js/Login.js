@@ -86,6 +86,7 @@ btnEnviar.addEventListener("click", function () {
 
     if (esEmail && esPassword) {
         // Construir los datos a enviar en el cuerpo de la solicitud
+        swal({ title: "Validando información", text: "Por favor espera...", icon: "info", closeOnClickOutside: false, buttons: false });
         let data = new URLSearchParams();
         data.append("email", email);
         data.append("password", password);
@@ -96,10 +97,13 @@ btnEnviar.addEventListener("click", function () {
         })
         .then(response => {
             if (response.ok) {
+                swal.close();
                 return response.text(); // "Inicio de sesión exitoso"
             } else if (response.status === 401) {
+                swal.close();
                 throw new Error("Credenciales incorrectas");
             } else {
+                swal.close();
                 throw new Error("Error en la solicitud");
             }
         })
