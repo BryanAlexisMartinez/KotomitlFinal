@@ -669,7 +669,7 @@ function alertSuccess() {
 }
 
 
-btnEnviar.addEventListener("click",  async function (element) {
+btnEnviar.addEventListener("click", async function (element) {
     element.preventDefault();
 
     let esNombre = validarNombre();
@@ -692,54 +692,53 @@ btnEnviar.addEventListener("click",  async function (element) {
     let esImagen2 = validarImagen2();
     let esImagen3 = validarImagen3();
 
-    if (esNombre && esOrigen && esDescripcion && esPrecio && esCategoria && esMaterial && esSugerencia && esAdicional && esColor && esTalla 
+    if (esNombre && esOrigen && esDescripcion && esPrecio && esCategoria && esMaterial && esSugerencia && esAdicional && esColor && esTalla
         && esCantidad && esSku && esTipo && esImagen1 && esImagen2 && esImagen3) {
         swal({ title: "Validando información", text: "Por favor espera...", icon: "info", closeOnClickOutside: false, buttons: false });
-    
+
         const data = {
-            "nombre": nombreInput.value.trim(),
-            "origen": origenInput.value.trim(),
-            "descripcion": descripcionInput.value.trim(),
-            "precio": parseFloat(precioInput.value),
-            "publico": parseInt(categoriaInput.value),
-            "materiales": materialInput.value.trim(),
-            "sugerencia": sugerenciaInput.value.trim(),
             "adicional": adicionalInput.value.trim(),
-            
-            "color":parseInt(colorInput.value),
-            "talla":parseInt(tallaInput.value),
-            "cantidad":parseInt(cantidadInput.value),
-
-            "sku": skuInput.value.trim(),
-            "tipo": tipoInput.value.trim(),
-
+            "cantidad": parseInt(cantidadInput.value),
+            "color": parseInt(colorInput.value),
+            "descripcion": descripcionInput.value.trim(),
             "imagen1": fileImage_1.value,
             "imagen2": fileImage_2.value,
-            "imagen3": fileImage_3.value
+            "imagen3": fileImage_3.value,
+            "materiales": materialInput.value.trim(),
+            "nombre": nombreInput.value.trim().toUpperCase(),
+            "origen": origenInput.value.trim().toUpperCase(),
+            "precio": parseFloat(precioInput.value), // Modificado para ser tratado como un número decimal
+            "publico": parseInt(categoriaInput.value),
+            "sku": skuInput.value.trim().toUpperCase(),
+            "sugerencia": sugerenciaInput.value.trim(),
+            "talla": parseInt(tallaInput.value),
+            "tipo": tipoInput.value.trim().toUpperCase()
         };
-    
+        
+
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-    
+
         var raw = JSON.stringify(data);
-    
+
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: raw,
             redirect: 'follow'
         };
-    
+
         try {
             const response = await fetch("https://kotomitl.onrender.com/api/productos/", requestOptions);
-    
+            const result = await response.text();
+
             if (response.ok) {
                 swal.close();
-                swal({ title: "¡Registro exitoso!", text: "El producto ha sido registrado.", icon: "success" });
+                alertSuccess();
                 limpiarCampos();
             } else {
                 swal.close();
-                swal({ title: "Error en el registro", text: "Hubo un problema al registrar el producto.", icon: "error" });
+                alertWrong();
                 // Actualizar estados de imágenes y estilos si es necesario
             }
         } catch (error) {
@@ -751,8 +750,6 @@ btnEnviar.addEventListener("click",  async function (element) {
     } else {
         swal.close();
     }
-    
-
 });
 
 

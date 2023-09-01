@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kotomitl.kotomitl.model.Productos;
+import com.kotomitl.kotomitl.model.Usuarios;
 import com.kotomitl.kotomitl.repository.ProductosRepository;
 
 @Service
@@ -41,7 +42,7 @@ public class ProductoService{
 		return tmp;
 	}
 	
-	//POST 
+	//POST  agregar producto
 	public Productos addProducto(Productos producto) {
 		Productos tmp = null;
 		if(varProductosRepository.findBySku(producto.getSku()).isEmpty()) {
@@ -51,6 +52,7 @@ public class ProductoService{
 		}
 		return tmp;
 	}
+	
 	
 	// PUT ACTUALIZAR DATOS DEL PRODUCTO
 		public Productos updateProducto(Long id,String nombre, Integer publico, String descripcion, Double precio, String origen,

@@ -392,7 +392,7 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
-            };
+            }; 
 
             try {
                 const response = await fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions);

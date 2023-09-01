@@ -29,14 +29,14 @@ public class UsuariosService {
 		return varUsuariosRepository.findAll();
 	}
 
-	// GET COMPRAS POR SU ID
+	// GET USER POR SU ID
 	public Usuarios getUsuarios(Long id) {
 		// orElseTrhow lanza una excepción cuando no encuentre el id
 		return varUsuariosRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Usuario con el id [" + id + "]no existe"));
 	}
 
-	// DELETE COMPRAS POR SU ID
+	// DELETE USER POR SU ID
 	public Usuarios deleteUsuarios(Long id) {
 		Usuarios tmp = null;
 		if (varUsuariosRepository.existsById(id)) {
