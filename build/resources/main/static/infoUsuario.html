@@ -33,7 +33,7 @@
                 <div class="col" style="margin: 3rem auto;">
                     <div class="card h-100">
                         <div class="card-header border-0" style="background-color: white;">
-                            <h2 style="text-align: center;">Hola ${usuario.nombre}</h2>
+                            <h2 style="text-align: center;">Hola</h2>
                         </div>
                         <div class="card-body justify-content-center d-flex" style="flex-direction: column; ">
 
@@ -43,6 +43,7 @@
                             
                             <!-- Botón de Actualizar-->
                             <div class="d-grid gap-2 col-6 mx-auto">
+                                <!--
                                 <button type="button" class="btn btn-warning" id="btnActualizar"
                                     style="margin: 2rem 0 2rem 0;">
                                     <span>
@@ -50,7 +51,7 @@
                                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                                           </svg>
                                     </span>
-                                    Guardar cambios </button>
+                                    Guardar cambios </button>-->
                             </div>
                         </div>
                     </div>
@@ -72,36 +73,11 @@
     <script src="./js/navfooter2.js"></script>
 
     <!-- Funciones de alta de productos -->
-    <script src="./js/alta.js"></script>
-
-    <!-- Funciones de alta de productos -->
     <script src="./js/infoUsuario.js"></script>
 
     <!-- Sweetalert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
-    <script>
-        const usuariosTableBody = document.querySelector("#usuariosTable tbody");
-    
-        fetch('/api/usuarios/')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(usuario => {
-                    const newRow = usuariosTableBody.insertRow();
-                    newRow.insertCell(0).textContent = usuario.nombre;
-                    newRow.insertCell(1).textContent = usuario.apellido;
-                    newRow.insertCell(2).textContent = usuario.telefono;
-                    newRow.insertCell(3).textContent = usuario.email;
-                    newRow.insertCell(4).textContent = usuario.password;
-                    newRow.insertCell(5).textContent = usuario.domicilio;
-                    newRow.insertCell(6).textContent = usuario.estado;
-                });
-            })
-            .catch(error => {
-                console.error('Error al obtener los usuarios:', error);
-            });
-    </script>
 </body>
 
 </html>
