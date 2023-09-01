@@ -107,7 +107,7 @@ btnEnviar.addEventListener("click", function () {
             // Aquí puedes manejar la respuesta exitosa
             sessionStorage.setItem('estadoLogin', true);
             sessionStorage.setItem('welcome', true);
-            sessionStorage.setItem('userLogin', email); // Cambiar a lo que corresponda
+           // sessionStorage.setItem('userLogin', email); // Cambiar a lo que corresponda
 
             emailInput.style.border = "";
             alert_email_login.style.display = "none";

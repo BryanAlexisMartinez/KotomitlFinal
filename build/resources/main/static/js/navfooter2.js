@@ -8,8 +8,8 @@ window.addEventListener("load", function (event) {
     event.preventDefault();
 
     if (sessionStorage.getItem('estadoLogin') === 'true') {
-        let nombre = this.sessionStorage.getItem('userLogin');
-        nombre= capitalizeAllWords(nombre);
+        //let nombre = this.sessionStorage.getItem('userLogin');
+        //nombre= capitalizeAllWords(nombre);
         navbar.insertAdjacentHTML("beforeend",
             `
         <nav class="navbar navbar-expand-lg custom-navbar">
@@ -48,7 +48,7 @@ window.addEventListener("load", function (event) {
                                     <li><a class="dropdown-item" href="./index.html" onclick="cierreSesion()">Cerrar sesión</a></li>
                                 </ul>
                             </div>
-                            <h5 class="text-center" style="color:white;">${nombre}</h5>
+                            <h5 class="text-center" style="color:white;">Hola</h5>
                     </div>
                             </div>
                         </div>
