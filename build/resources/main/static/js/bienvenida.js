@@ -7,13 +7,13 @@ function bienvenida() {
     if (sessionStorage.getItem('estadoLogin') !== null) {
         // Obtener una variable del sessionStorage
         const valorGuardado = sessionStorage.getItem('estadoLogin');
-        let nombreGuardado = sessionStorage.getItem('userLogin');
+        //let nombreGuardado = sessionStorage.getItem('userLogin');
         const saludo = sessionStorage.getItem('welcome');
 
         nombreGuardado = nombreGuardado.toLowerCase().split(' ').map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1)).join(' ');
 
         if (valorGuardado == "true" && saludo == "true") {
-            swal("¡Hola " + nombreGuardado + "!", "Bienvenid@", "success");
+            swal("¡Hola!", "Bienvenid@", "success");
             sessionStorage.setItem('welcome', false);
         }
     }
