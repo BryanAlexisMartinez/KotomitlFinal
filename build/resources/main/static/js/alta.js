@@ -160,10 +160,21 @@ function borrarValidaciones() {
     alert_tipo_txt.innerHTML = "";
     tipoInput.value = "";
 
+    
+    imageFile_1.src = "";
+    imageFile_1.style.display = "none";
+    container_1.style.border = "";
+    document.getElementById("container_img_1").style.display = "flex";
 
+    imageFile_2.src = "";
+    imageFile_2.style.display = "none";
+    container_2.style.border = "";
+    document.getElementById("container_img_2").style.display = "flex";
 
-
-
+    imageFile_3.src = "";
+    imageFile_3.style.display = "none";
+    container_3.style.border = "";
+    document.getElementById("container_img_3").style.display = "flex";
 }
 
 //   ***********  1. Validación de nombre  ***********
@@ -718,10 +729,11 @@ btnEnviar.addEventListener("click", async function (event) {
 
         try {
             const response = await enviarSolicitud(data);
-            
+
             if (response.ok) {
                 alertSuccess();
-                limpiarCampos();
+                borrarValidaciones();
+
             } else {
                 alertWrong();
                 // Actualizar estados de imágenes y estilos si es necesario
@@ -801,7 +813,7 @@ btnEnviar.addEventListener("click", async function (element) {
             "talla": parseInt(tallaInput.value),
             "tipo": tipoInput.value.trim().toUpperCase()
         };
-        
+
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
