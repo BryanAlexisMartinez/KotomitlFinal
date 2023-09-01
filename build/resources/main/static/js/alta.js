@@ -6,10 +6,10 @@ let alert_nombre = document.getElementById("alert_nombre");
 let alert_nombre_txt = document.getElementById("alert_nombre_txt");
 let nombreProductotxt = "";//valor para localStorage
 
-let origenInput = document.getElementById("origenInput");
-let alert_origen = document.getElementById("alert_origen");
-let alert_origen_txt = document.getElementById("alert_origen_txt");
-let origenProductotxt = "";
+let categoriaInput = document.getElementById("categoriaInput");
+let alert_categoria = document.getElementById("alert_categoria");
+let alert_categoria_txt = document.getElementById("alert_categoria_txt");
+let categoriaProductotxt = "";//valor para localStorage
 
 let descripcionInput = document.getElementById("descripcionInput");
 let alert_descripcion = document.getElementById("alert_descripcion");
@@ -21,10 +21,20 @@ let alert_precio = document.getElementById("alert_precio");
 let alert_precio_txt = document.getElementById("alert_precio_txt");
 let precioProductotxt = "";//valor para localStorage
 
-let categoriaInput = document.getElementById("categoriaInput");
-let alert_categoria = document.getElementById("alert_categoria");
-let alert_categoria_txt = document.getElementById("alert_categoria_txt");
-let categoriaProductotxt = "";//valor para localStorage
+let origenInput = document.getElementById("origenInput");
+let alert_origen = document.getElementById("alert_origen");
+let alert_origen_txt = document.getElementById("alert_origen_txt");
+let origenProductotxt = "";
+
+let colorInput = document.getElementById("colorInput");
+let alert_color = document.getElementById("alert_color");
+let alert_color_txt = document.getElementById("alert_color_txt");
+let colorProductotxt = "";//valor para localStorage
+
+let cantidadInput = document.getElementById("cantidadInput");
+let alert_cantidad = document.getElementById("alert_cantidad");
+let alert_cantidad_txt = document.getElementById("alert_cantidad_txt");
+let cantidadProductotxt = "";//valor para localStorage
 
 let materialInput = document.getElementById("materialInput");
 let alert_material = document.getElementById("alert_material");
@@ -40,6 +50,21 @@ let adicionalInput = document.getElementById("adicionalInput");
 let alert_adicional = document.getElementById("alert_adicional");
 let alert_adicional_txt = document.getElementById("alert_adicional_txt");
 let adicionalProductotxt = "";//valor para localStorage
+
+let tallaInput = document.getElementById("tallaInput");
+let alert_talla = document.getElementById("alert_talla");
+let alert_talla_txt = document.getElementById("alert_talla_txt");
+let tallaProductotxt = "";//valor para localStorage
+
+let skuInput = document.getElementById("skuInput");
+let alert_sku = document.getElementById("alert_sku");
+let alert_sku_txt = document.getElementById("alert_sku_txt");
+let skuProductotxt = "";//valor para localStorage
+
+let tipoInput = document.getElementById("tipoInput");
+let alert_tipo = document.getElementById("alert_tipo");
+let alert_tipo_txt = document.getElementById("alert_tipo_txt");
+let tipoProductotxt = "";//valor para localStorage
 
 //Carga de imágenes
 let fileImage_1 = document.getElementById('fileImage_1');
@@ -66,50 +91,79 @@ const container_3 = document.getElementById("container_3");
 //Botón de envío
 const btnEnviar = document.getElementById("btnEnviar");
 
-//   ***********  0. Reset de las validaciones  ***********
-
+//===============LIMPIAR CAMPOS UNA VEZ SUBIDO EL PRODUCOT A LA BASE DE DATOS========================
 function borrarValidaciones() {
 
     //elementos de validación limpios
     nombreInput.style.border = "";
     alert_nombre.style.display = "none";
     alert_nombre_txt.innerHTML = "";
-    nombreInput.value="";
-
-    origenInput.style.border = "";
-    alert_origen.style.display = "none";
-    alert_origen_txt.innerHTML = "";
-    origenInput.value=""
-
-    descripcionInput.style.border = "";
-    alert_descripcion.style.display = "none";
-    alert_descripcion_txt.innerHTML = "";
-    descripcionInput.value=""
-
-    precioInput.style.border = "";
-    alert_precio.style.display = "none";
-    alert_precio_txt.innerHTML = "";
-    precioInput.value="";
+    nombreInput.value = "";
 
     categoriaInput.style.border = "";
     alert_categoria.style.display = "none";
     alert_categoria_txt.innerHTML = "";
-    categoriaInput.value="";
+    categoriaInput.value = "";
+
+    descripcionInput.style.border = "";
+    alert_descripcion.style.display = "none";
+    alert_descripcion_txt.innerHTML = "";
+    descripcionInput.value = ""
+
+    precioInput.style.border = "";
+    alert_precio.style.display = "none";
+    alert_precio_txt.innerHTML = "";
+    precioInput.value = "";
+
+    origenInput.style.border = "";
+    alert_origen.style.display = "none";
+    alert_origen_txt.innerHTML = "";
+    origenInput.value = ""
+
+    colorInput.style.border = "";
+    alert_color.style.display = "none";
+    alert_color_txt.innerHTML = "";
+    colorInput.value = "";
+
+    cantidadInput.style.border = "";
+    alert_cantidad.style.display = "none";
+    alert_cantidad_txt.innerHTML = "";
+    cantidadInput.value = "";
 
     materialInput.style.border = "";
     alert_material.style.display = "none";
     alert_material_txt.innerHTML = "";
-    materialInput.value="";
+    materialInput.value = "";
 
     sugerenciaInput.style.border = "";
     alert_sugerencia.style.display = "none";
     alert_sugerencia_txt.innerHTML = "";
-    sugerenciaInput.value="";
+    sugerenciaInput.value = "";
 
     adicionalInput.style.border = "";
     alert_adicional.style.display = "none";
     alert_adicional_txt.innerHTML = "";
-    adicionalInput.value="";
+    adicionalInput.value = "";
+
+    tallaInput.style.border = "";
+    alert_talla.style.display = "none";
+    alert_talla_txt.innerHTML = "";
+    tallaInput.value = "";
+
+    skuInput.style.border = "";
+    alert_sku.style.display = "none";
+    alert_sku_txt.innerHTML = "";
+    skuInput.value = "";
+
+    tipoInput.style.border = "";
+    alert_tipo.style.display = "none";
+    alert_tipo_txt.innerHTML = "";
+    tipoInput.value = "";
+
+
+
+
+
 }
 
 //   ***********  1. Validación de nombre  ***********
@@ -166,8 +220,8 @@ origenInput.addEventListener("change", function (element) {
     validarOrigen();
 })
 
-//   ***********  3. Validación de descripcion  ***********
 
+//   ***********  3. Validación de descripcion  ***********
 function validarDescripcion() {
     let regexName = /^[a-zA-Z0-9," ",áéíóúÁÉÍÓÚüÜñÑ.]{15,150}$/;
     valor = descripcionInput.value.trim();
@@ -333,6 +387,154 @@ adicionalInput.addEventListener("change", function (element) {
     validarAdicional();
 })
 
+
+
+//   ***********  9. Validación de color  ***********
+
+function validarColor() {
+
+    valor = colorInput.value;
+
+    colorInput.style.border = "";
+    alert_color.style.display = "none";
+    alert_color_txt.innerHTML = "";
+
+
+    if (valor != "") {
+        colorInput.style.border = "solid 2px green";
+        colorProductotxt = valor;
+        return true
+    } else {
+        alert_color_txt.insertAdjacentHTML("afterbegin", `Incorrecta`);
+        alert_color.style.display = "flex";
+        colorInput.style.border = "solid 2px rgb(186, 3, 3)";
+        return false;
+    }
+}
+
+colorInput.addEventListener("change", function (element) {
+    element.preventDefault();
+    validarColor();
+})
+
+
+
+
+//   ***********  10. Validación de talla  ***********
+
+function validarTalla() {
+
+    valor = tallaInput.value;
+
+    tallaInput.style.border = "";
+    alert_talla.style.display = "none";
+    alert_talla_txt.innerHTML = "";
+
+
+    if (valor != "") {
+        tallaInput.style.border = "solid 2px green";
+        tallaProductotxt = valor;
+        return true
+    } else {
+        alert_talla_txt.insertAdjacentHTML("afterbegin", `Incorrecta`);
+        alert_talla.style.display = "flex";
+        tallaInput.style.border = "solid 2px rgb(186, 3, 3)";
+        return false;
+    }
+}
+
+tallaInput.addEventListener("change", function (element) {
+    element.preventDefault();
+    validarTalla();
+})
+
+
+
+//   ***********  11. Validación de cantidad  ***********
+
+function validarCantidad() {
+    valor = cantidadInput.value.trim();
+
+    cantidadInput.style.border = "";
+    alert_cantidad.style.display = "none";
+    alert_cantidad_txt.innerHTML = "";
+
+    if (!isNaN(valor) && valor.length > 0 && valor.length < 8 && Number.isInteger(parseFloat(valor))) {
+        cantidadInput.style.border = "solid 2px green";
+        cantidadProductotxt = parseInt(valor);
+        return true;
+    } else {
+        alert_cantidad_txt.insertAdjacentHTML("afterbegin", `Incorrecto`);
+        alert_cantidad.style.display = "flex";
+        cantidadInput.style.border = "solid 2px rgb(186, 3, 3)";
+        return false;
+    }
+}
+
+cantidadInput.addEventListener("change", function (event) {
+    event.preventDefault();
+    validarCantidad();
+});
+
+
+//   ***********  12. Validación de sku  ***********
+
+function validarSku() {
+    let regexSku = /^[a-zA-Z0-9," "áéíóúÁÉÍÓÚüÜñÑ._]{3,}$/;
+    valor = skuInput.value.trim().toUpperCase();
+
+    skuInput.style.border = "";
+    alert_sku.style.display = "none";
+    alert_sku_txt.innerHTML = "";
+
+    if (regexSku.test(valor)) {
+        skuInput.style.border = "solid 2px green";
+        skuProductotxt = valor;
+        return true
+    } else {
+        alert_sku_txt.insertAdjacentHTML("afterbegin", `Sku incorrecto`);
+        alert_sku.style.display = "flex";
+        skuInput.style.border = "solid 2px rgb(186, 3, 3)";
+        return false;
+    }
+}
+
+skuInput.addEventListener("change", function (element) {
+    element.preventDefault();
+    validarSku();
+})
+
+
+
+//   ***********  13. Validación de tipo  ***********
+
+function validarTipo() {
+    let regexTipo = /^[a-zA-Z0-9," "áéíóúÁÉÍÓÚüÜñÑ._]{3,}$/;
+    valor = tipoInput.value.trim().toUpperCase();
+
+    tipoInput.style.border = "";
+    alert_tipo.style.display = "none";
+    alert_tipo_txt.innerHTML = "";
+
+    if (regexTipo.test(valor)) {
+        tipoInput.style.border = "solid 2px green";
+        tipoProductotxt = valor;
+        return true
+    } else {
+        alert_tipo_txt.insertAdjacentHTML("afterbegin", `Tipo incorrecto`);
+        alert_tipo.style.display = "flex";
+        tipoInput.style.border = "solid 2px rgb(186, 3, 3)";
+        return false;
+    }
+}
+
+tipoInput.addEventListener("change", function (element) {
+    element.preventDefault();
+    validarTipo();
+})
+
+
+
 // ================== Carga imágenes ========================
 
 //   ***********  Carga de imagen 1   ***********
@@ -453,7 +655,7 @@ function validarImagen3() {
     } else {
         container_3.style.border = "solid 3px green";
         return true;
-    } 
+    }
 }
 
 // ***********  Alerta de error  ***********
@@ -466,20 +668,118 @@ function alertSuccess() {
     swal("Producto agregado :)", "Visualiza tu producto en el catálogo", "success");
 }
 
+
+btnEnviar.addEventListener("click",  async function (element) {
+    element.preventDefault();
+
+    let esNombre = validarNombre();
+    let esOrigen = validarOrigen();
+    let esDescripcion = validarDescripcion();
+    let esPrecio = validarPrecio();
+    let esCategoria = validarCategoria();
+    let esMaterial = validarMaterial();
+    let esSugerencia = validarSugerencia();
+    let esAdicional = validarAdicional();
+
+    let esColor = validarColor();
+    let esTalla = validarTalla();
+    let esCantidad = validarCantidad();
+    let esSku = validarSku();
+    let esTipo = validarTipo();
+
+
+    let esImagen1 = validarImagen1();
+    let esImagen2 = validarImagen2();
+    let esImagen3 = validarImagen3();
+
+    if (esNombre && esOrigen && esDescripcion && esPrecio && esCategoria && esMaterial && esSugerencia && esAdicional && esColor && esTalla 
+        && esCantidad && esSku && esTipo && esImagen1 && esImagen2 && esImagen3) {
+        swal({ title: "Validando información", text: "Por favor espera...", icon: "info", closeOnClickOutside: false, buttons: false });
+    
+        const data = {
+            "nombre": nombreInput.value.trim(),
+            "origen": origenInput.value.trim(),
+            "descripcion": descripcionInput.value.trim(),
+            "precio": parseFloat(precioInput.value),
+            "publico": parseInt(categoriaInput.value),
+            "materiales": materialInput.value.trim(),
+            "sugerencia": sugerenciaInput.value.trim(),
+            "adicional": adicionalInput.value.trim(),
+            
+            "color":parseInt(colorInput.value),
+            "talla":parseInt(tallaInput.value),
+            "cantidad":parseInt(cantidadInput.value),
+
+            "sku": skuInput.value.trim(),
+            "tipo": tipoInput.value.trim(),
+
+            "imagen1": fileImage_1.value,
+            "imagen2": fileImage_2.value,
+            "imagen3": fileImage_3.value
+        };
+    
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+    
+        var raw = JSON.stringify(data);
+    
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+    
+        try {
+            const response = await fetch("https://kotomitl.onrender.com/api/productos/", requestOptions);
+    
+            if (response.ok) {
+                swal.close();
+                swal({ title: "¡Registro exitoso!", text: "El producto ha sido registrado.", icon: "success" });
+                limpiarCampos();
+            } else {
+                swal.close();
+                swal({ title: "Error en el registro", text: "Hubo un problema al registrar el producto.", icon: "error" });
+                // Actualizar estados de imágenes y estilos si es necesario
+            }
+        } catch (error) {
+            console.log('error', error);
+            swal.close();
+            swal({ title: "Error en el registro", text: "Hubo un problema al registrar el producto.", icon: "error" });
+            // Actualizar estados de imágenes y estilos si es necesario
+        }
+    } else {
+        swal.close();
+    }
+    
+
+});
+
+
+
+
+
+
+
+
+
+
+
+/*
 // ***********  Almacenamiento en localstorage  ***********
 
 let listaProductos = new Array(); // para almacenar elementos de la tabla
 
 function guardarStorage() {
     let producto = `
-        {       
-        "id": 33, 
-        "title": "${nombreProductotxt}", 
-        "price": ${precioProductotxt}, 
-        "description" : "${descripcionProductotxt}", 
-        "Origen" : "${origenProductotxt}", 
-        "image" : "${imagen_1}", 
-        "image2" : "${imagen_2}", 
+        {
+        "id": 33,
+        "title": "${nombreProductotxt}",
+        "price": ${precioProductotxt},
+        "description" : "${descripcionProductotxt}",
+        "Origen" : "${origenProductotxt}",
+        "image" : "${imagen_1}",
+        "image2" : "${imagen_2}",
         "image3" : "${imagen_3}",
         "Desc1" : "${materialProductotxt}",
         "Desc2" : "${sugerenciaProductotxt}",
@@ -493,10 +793,12 @@ function guardarStorage() {
     // convierte objeto en string para localStorage
     localStorage.setItem("listaProductos", JSON.stringify(listaProductos));
 }
-
+*/
 
 // ***********  Ejecución integral de las funciones  ***********
 
+//============Guardar en el localStorage
+/*
 btnEnviar.addEventListener("click", function (element) {
     element.preventDefault();
 
@@ -548,3 +850,4 @@ window.addEventListener("load", function (event) {
         listaProductos = JSON.parse(listaProductosJSON);
     }
 })
+*/

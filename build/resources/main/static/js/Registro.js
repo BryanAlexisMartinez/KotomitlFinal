@@ -333,10 +333,16 @@ async function validaEmailNuevo() {
     const emailToCheck = emailInput.value.trim().toLowerCase();
 
     try {
-        const response = await fetch(`https://kotomitl.onrender.com/api/usuarios?email=${emailToCheck}`);
+        const response = await fetch(`https://kotomitl.onrender.com/api/usuarios/`);
         const data = await response.json();
 
-        return true; // Retorna true si el correo existe
+        const userWithEmail = data.find(user => user.email.toLowerCase() === emailToCheck);
+
+        if (userWithEmail) {
+            return true; // Retorna true si el correo existe
+        } else {
+            return false; // Retorna false si el correo no existe
+        }
     } catch (error) {
         console.log('Error al verificar el correo:', error);
 
@@ -359,11 +365,14 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
     let esPassword = validarpassword();
     let esPasswordVal = validarpassword2();
 
-    // Llama a la función para verificar si el correo ya está registrado
-    const esEmailNuevo = await validaEmailNuevo();
-
     if (esNombre && esApellido && esTelefono && esEmail && esEmailVal && esPassword && esPasswordVal) {
-        //if (esEmailNuevo === true) {
+        swal({ title: "Validando información", text: "Por favor espera...", icon: "info", closeOnClickOutside: false, buttons: false });
+
+        // Llama a la función para verificar si el correo ya está registrado
+        const correoExiste = await validaEmailNuevo();
+        // Cerrar la alerta de validación
+
+        if (!correoExiste) {
             // Realizar el registro
             const registro = {
                 "nombre": nombreInput.value.trim().toUpperCase(),
@@ -372,45 +381,50 @@ document.getElementById('btnEnviar').addEventListener('click', async function ()
                 "email": emailInput.value.trim().toLowerCase(),
                 "password": passwordInput.value
             };
-        
+
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-        
+
             var raw = JSON.stringify(registro);
-        
+
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
             };
-        
+
             try {
                 const response = await fetch("https://kotomitl.onrender.com/api/usuarios/", requestOptions);
                 const result = await response.text();
-        
+
                 if (response.ok) {
                     // Mostrar mensaje de éxito
-                    swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success" });
+                    swal.close();
+                    swal({ title: "¡Registro exitoso!", text: "Ya puedes iniciar sesión.", icon: "success",  }).then(() => {
+                        window.location.href = "https://kotomitl.onrender.com/loginUsuario.html" });
                     // Limpiar los campos del formulario
                     limpiarCampos();
                 } else {
                     // Mostrar mensaje de error
+                    swal.close();
                     swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
                 }
             } catch (error) {
                 console.log('error', error);
                 // Mostrar mensaje de error
+                swal.close();
                 swal({ title: "Error en el registro", text: "Hubo un problema al registrar el usuario.", icon: "error" });
             }
-        //} else {
-        //    swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
-        //}
-        
+        } else {
+            swal.close();
+            swal({ title: "¡Correo ya registrado!", text: "Intenta nuevamente con otro e-mail", icon: "error" });
+        }
     } else {
         alertWrong();
     }
 });
+
 
 
 

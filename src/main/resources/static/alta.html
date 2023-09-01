@@ -55,6 +55,20 @@
                                 required minlength="5" maxlength="50">
                         </div>
 
+                        <!-- Tipo -->
+                        <div class="mb-5">
+                            <div class="d-flex container_label">
+                                <label for="tipoInput" class="form-label">Tipo del producto</label>
+                                <div class="warning__text" style="display:none; color:rgb(186, 3, 3)" role="alert"
+                                    id="alert_tipo">
+                                    <span><i class="bi bi-exclamation-triangle-fill icon__warning"></i></span>
+                                    <span id="alert_tipo_txt"></span>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" id="tipoInput" placeholder="Mínimo 5 caracteres"
+                                required minlength="5" maxlength="50">
+                        </div>
+
                         <!-- Origen de producto -->
                         <div class="mb-5">
                             <div class="d-flex container_label">
@@ -127,6 +141,90 @@
                                     <option value="fem">Mujer</option>
                                     <option value="mas">Hombre</option>
                                     <option value="inf">Infante</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 g-2 mt-0 mx-auto" style="width: 95%;">
+                            <!-- Cantidad -->
+                            <div class="mb-5 mt-0">
+                                <div class="d-flex container_label">
+                                    <label for="cantidadInput" class="form-label"
+                                        style="margin-left: 2rem;">Cantidad</label>
+                                    <div class="warning__text" style="display:none; color:rgb(186, 3, 3)" role="alert"
+                                        id="alert_cantidad">
+                                        <span><i class="bi bi-exclamation-triangle-fill icon__warning"></i></span>
+                                        <span id="alert_cantidad_txt"></span>
+                                    </div>
+                                </div>
+                                <input
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                    type="text" class="form-control" id="cantidadInput" placeholder="Ej. 10" required
+                                    minlength="1" maxlength="7">
+                            </div>
+
+                            <!-- Color -->
+                            <div class="mb-5 mt-0">
+                                <div class="d-flex container_label">
+                                    <label for="colorInput" style="margin-left: 2rem;"
+                                        class="form-label">Color</label>
+                                    <div class="warning__text" style="display:none; color:rgb(186, 3, 3)" role="alert"
+                                        id="alert_color">
+                                        <span><i class="bi bi-exclamation-triangle-fill icon__warning"></i></span>
+                                        <span id="alert_color_txt"></span>
+                                    </div>
+                                </div>
+                                <select id="colorInput" name="colorInput" class="form-select form-control"
+                                    required>
+                                    <option value="" selected>Seleccionar</option>
+                                    <option value="bla">Blanco</option>
+                                    <option value="neg">Negro</option>
+                                    <option value="azu">Azúl</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 g-2 mt-0 mx-auto" style="width: 95%;">
+
+
+
+                            <!-- Sku -->
+                        <div class="mb-5">
+                            <div class="d-flex container_label">
+                                <label for="skuInput" class="form-label">Sku</label>
+                                <div class="warning__text" style="display:none; color:rgb(186, 3, 3)" role="alert"
+                                    id="alert_sku">
+                                    <span><i class="bi bi-exclamation-triangle-fill icon__warning"></i></span>
+                                    <span id="alert_sku_txt"></span>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" id="skuInput" placeholder="Mínimo 5 caracteres"
+                                required minlength="5" maxlength="50">
+                        </div>
+
+                            <!-- Talla -->
+                            <div class="mb-5 mt-0">
+                                <div class="d-flex container_label">
+                                    <label for="tallaInput" style="margin-left: 2rem;"
+                                        class="form-label">Talla</label>
+                                    <div class="warning__text" style="display:none; color:rgb(186, 3, 3)" role="alert"
+                                        id="alert_talla">
+                                        <span><i class="bi bi-exclamation-triangle-fill icon__warning"></i></span>
+                                        <span id="alert_talla_txt"></span>
+                                    </div>
+                                </div>
+                                <select id="tallaInput" name="tallaInput" class="form-select form-control"
+                                    required>
+                                    <option value="" selected>Seleccionar</option>
+                                    <option value="chi">Chica</option>
+                                    <option value="med">Mediana</option>
+                                    <option value="gra">Grande</option>
+                                    <option value="xgr">Extra grande</option>
                                 </select>
                             </div>
                         </div>
@@ -268,7 +366,7 @@
             </form>
         </section>
     </main>
-
+ 
     <!-- ================= FOOTER ============== -->
     <footer id="footer"></footer>
 
