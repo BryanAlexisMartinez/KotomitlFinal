@@ -75,8 +75,8 @@ passwordInput.addEventListener("change", function (element) {
 
 // ***********  Integración de validaciones en botón de envío  ***********
 
-btnEnviar.addEventListener("click", function () {
 
+btnEnviar.addEventListener("click", function () {
     // Se obtienen los valores de los campos del formulario
     let email = emailInput.value.trim().toLowerCase();
     let password = passwordInput.value.trim();
@@ -85,50 +85,54 @@ btnEnviar.addEventListener("click", function () {
     let esPassword = validarPassword();
 
     if (esEmail && esPassword) {
+        // Construir los datos a enviar en el cuerpo de la solicitud
+        let data = new URLSearchParams();
+        data.append("email", email);
+        data.append("password", password);
 
-        if (localStorage.getItem('registroUsuario')===null){
-            swal("No hay datos registrados", "Por favor primero regístrate", "error");
-            return false;
-        }
-
-        // Se obtienen los registros almacenados en el localStorage
-        let storedRecordJSON = localStorage.getItem('registroUsuario');
-        let storedRecord = JSON.parse(storedRecordJSON);
-
-        for (let i = 0; i < storedRecord.length; i++) {
-
-            if (storedRecord[i].email == email && storedRecord[i].password == password) {
-
-                sessionStorage.setItem('estadoLogin', true);
-                sessionStorage.setItem('welcome', true);
-                sessionStorage.setItem('userLogin', storedRecord[i].nombre);
-
-                emailInput.style.border = "";
-                alert_email_login.style.display = "none";
-                alert_email_login_txt.innerHTML = "";
-                emailInput.value = "";
-
-                passwordInput.style.border = "";
-                alert_password_login.style.display = "none";
-                alert_password_login_txt.innerHTML = "";
-                passwordInput.value = "";
-
-                setTimeout(function () {
-                    window.location.href = "./index.html";
-                }, 1000);
-
-                break
-
+        fetch("/api/usuarios/login", {
+            method: "POST",
+            body: data,
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // "Inicio de sesión exitoso"
+            } else if (response.status === 401) {
+                throw new Error("Credenciales incorrectas");
             } else {
-                alertWrong();
-                alert_password_login.style.display = "flex";
-                alert_password_login.style.color = "rgb(217 162 7)"
-                passwordInput.style.border = "solid 2px rgb(217 162 7)";
-
-                alert_email_login.style.display = "flex";
-                alert_email_login.style.color = "rgb(217 162 7)"
-                emailInput.style.border = "solid 2px rgb(217 162 7)";
+                throw new Error("Error en la solicitud");
             }
-        }
+        })
+        .then(message => {
+            // Aquí puedes manejar la respuesta exitosa
+            sessionStorage.setItem('estadoLogin', true);
+            sessionStorage.setItem('welcome', true);
+            sessionStorage.setItem('userLogin', email); // Cambiar a lo que corresponda
+
+            emailInput.style.border = "";
+            alert_email_login.style.display = "none";
+            alert_email_login_txt.innerHTML = "";
+            emailInput.value = "";
+
+            passwordInput.style.border = "";
+            alert_password_login.style.display = "none";
+            alert_password_login_txt.innerHTML = "";
+            passwordInput.value = "";
+
+            setTimeout(function () {
+                window.location.href = "https://kotomitl.onrender.com/index.html";
+            }, 1000);
+        })
+        .catch(error => {
+            // Aquí puedes manejar errores
+            alertWrong();
+            alert_password_login.style.display = "flex";
+            alert_password_login.style.color = "rgb(217 162 7)";
+            passwordInput.style.border = "solid 2px rgb(217 162 7)";
+
+            alert_email_login.style.display = "flex";
+            alert_email_login.style.color = "rgb(217 162 7)";
+            emailInput.style.border = "solid 2px rgb(217 162 7)";
+        });
     }
 });
