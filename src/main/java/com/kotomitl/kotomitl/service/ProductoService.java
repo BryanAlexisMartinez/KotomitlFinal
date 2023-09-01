@@ -1,5 +1,6 @@
 package com.kotomitl.kotomitl.service;
 
+import java.sql.Blob;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,7 @@ public class ProductoService{
 	// PUT ACTUALIZAR DATOS DEL PRODUCTO
 		public Productos updateProducto(Long id,String nombre, Integer publico, String descripcion, Double precio, String origen,
 				Integer color, Integer cantidad, Integer talla, String materiales, String sugerencia, String adicional,
-				String imagen1, String imagen2, String imagen3, String sku, String tipo) {
+				Blob imagen1, Blob imagen2, Blob imagen3, String sku, String tipo) {
 
 			Productos tmp = null;
 

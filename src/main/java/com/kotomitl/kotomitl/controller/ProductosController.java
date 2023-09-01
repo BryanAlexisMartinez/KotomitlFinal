@@ -1,5 +1,6 @@
 package com.kotomitl.kotomitl.controller;
 
+import java.sql.Blob;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +69,9 @@ public class ProductosController {
 				@RequestParam(required = false) String materiales,
 				@RequestParam(required = false) String sugerencia,
 				@RequestParam(required = false) String adicional,
-				@RequestParam(required = false) String imagen1,
-				@RequestParam(required = false) String imagen2,
-				@RequestParam(required = false) String imagen3,
+				@RequestParam(required = false) Blob imagen1,
+				@RequestParam(required = false) Blob imagen2,
+				@RequestParam(required = false) Blob imagen3,
 				@RequestParam(required = false) String sku,
 				@RequestParam(required = false) String tipo){
 			return varProductoService.updateProducto(id,nombre, publico, descripcion, precio, origen, color, cantidad, talla, materiales, sugerencia,

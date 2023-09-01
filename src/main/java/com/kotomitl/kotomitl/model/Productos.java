@@ -1,5 +1,7 @@
 package com.kotomitl.kotomitl.model;
 
+import java.sql.Blob;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,14 +51,14 @@ public class Productos {
 	@Column (name="adicional",nullable=false)	
 	private String adicional;
 	
-	@Column (name="imagen1",nullable=false, length = 100000)	
-	private String imagen1;
+	@Column (name="imagen1",nullable=false)	
+	private Blob imagen1;
 	
-	@Column (name="imagen2",nullable=false, length = 100000)	
-	private String imagen2;
+	@Column (name="imagen2",nullable=false)	
+	private Blob imagen2;
 	
-	@Column (name="imagen3",nullable=false, length = 100000)	
-	private String imagen3;
+	@Column (name="imagen3",nullable=false)	
+	private Blob imagen3;
 	
 	@Column (name="sku",nullable=false)	
 	private String sku;
@@ -69,7 +71,7 @@ public class Productos {
 
 	public Productos(Long id, String nombre, Integer publico, String descripcion, Double precio, String origen,
 			Integer color, Integer cantidad, Integer talla, String materiales, String sugerencia, String adicional,
-			String imagen1, String imagen2, String imagen3, String sku, String tipo) {
+			Blob imagen1, Blob imagen2, Blob imagen3, String sku, String tipo) {
 		this.id = id;
 		this.nombre = nombre;
 		this.publico = publico;
@@ -177,27 +179,27 @@ public class Productos {
 		this.adicional = adicional;
 	}
 
-	public String getImagen1() {
+	public Blob getImagen1() {
 		return imagen1;
 	}
 
-	public void setImagen1(String imagen1) {
+	public void setImagen1(Blob imagen1) {
 		this.imagen1 = imagen1;
 	}
 
-	public String getImagen2() {
+	public Blob getImagen2() {
 		return imagen2;
 	}
 
-	public void setImagen2(String imagen2) {
+	public void setImagen2(Blob imagen2) {
 		this.imagen2 = imagen2;
 	}
 
-	public String getImagen3() {
+	public Blob getImagen3() {
 		return imagen3;
 	}
 
-	public void setImagen3(String imagen3) {
+	public void setImagen3(Blob imagen3) {
 		this.imagen3 = imagen3;
 	}
 	
