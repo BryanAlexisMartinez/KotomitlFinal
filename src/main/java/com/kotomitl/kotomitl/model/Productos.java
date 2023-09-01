@@ -49,13 +49,13 @@ public class Productos {
 	@Column (name="adicional",nullable=false)	
 	private String adicional;
 	
-	@Column (name="imagen1",nullable=false)	
+	@Column (name="imagen1",nullable=false, length = 100000)	
 	private String imagen1;
 	
-	@Column (name="imagen2",nullable=false)	
+	@Column (name="imagen2",nullable=false, length = 100000)	
 	private String imagen2;
 	
-	@Column (name="imagen3",nullable=false)	
+	@Column (name="imagen3",nullable=false, length = 100000)	
 	private String imagen3;
 	
 	@Column (name="sku",nullable=false)	
